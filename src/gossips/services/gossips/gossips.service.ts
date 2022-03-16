@@ -15,11 +15,11 @@ export class GossipsService {
       gossipQuery.threat,
     );
 
-    return { gossip: `${prefix || ''} ${gossipBody} ${suffix || ''}` };
+    return [`${prefix || ''} ${gossipBody} ${suffix || ''}`];
   }
 
   getGossips() {
-    return { gossip: 'You were expecting some gossips? not today mate...' };
+    return ['You were expecting some gossips? not today mate...'];
   }
 
   getPrefixType(race: string): string {
