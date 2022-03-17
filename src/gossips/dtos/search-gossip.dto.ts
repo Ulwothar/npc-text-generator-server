@@ -1,11 +1,16 @@
 import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
-import { types, patrons, threat } from '../types/index';
+import { types, locations, patrons, threat, races } from '../types/index';
 
-export class CreateGossipDTO {
+export class SearchGossipDTO {
   @IsNotEmpty()
   @IsString()
   @IsEnum(types)
   type: types;
+
+  @IsNotEmpty()
+  @IsString()
+  @IsEnum(locations)
+  location: locations;
 
   @IsNotEmpty()
   @IsString()
@@ -19,5 +24,6 @@ export class CreateGossipDTO {
 
   @IsNotEmpty()
   @IsString()
-  gossip: string;
+  @IsEnum(races)
+  race: races;
 }

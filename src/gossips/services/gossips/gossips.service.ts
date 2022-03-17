@@ -1,25 +1,52 @@
 import { Injectable } from '@nestjs/common';
 import { CreateGossipDTO } from 'src/gossips/dtos/create-gossip.dto';
+import { SearchGossipDTO } from 'src/gossips/dtos/search-gossip.dto';
+import { GossipRepository } from 'src/gossips/repositories/gossip.repository';
 
 @Injectable()
 export class GossipsService {
-  getGossipsByQuery(gossipQuery: CreateGossipDTO) {
+  constructor(private readonly gossipRepository: GossipRepository) {}
+
+  async getGossipsByQuery(gossipQuery: SearchGossipDTO) {
+    const gossips = await this.gossipRepository.find(gossipQuery);
+    if (!gossips) {
+      return null;
+    }
     const prefixType: string | null = this.getPrefixType(gossipQuery.race);
     console.log(prefixType);
     const prefix: string | null = this.getPrefix(prefixType);
     console.log(prefix);
     const suffix: string | null = this.getSuffix(gossipQuery.location);
-    const gossipBody: string = this.getGossipBody(
-      gossipQuery.type,
-      gossipQuery.patrons,
-      gossipQuery.threat,
-    );
+    // const gossipBody: string = this.getGossipBody(
+    //   gossipQuery.type,
+    //   gossipQuery.patrons,
+    //   gossipQuery.threat,
+    // );
 
-    return [`${prefix || ''} ${gossipBody} ${suffix || ''}`];
+    gossips.forEach((gossip) => {
+      gossip.gossip = `${prefix || ''} ${gossip.gossip} ${suffix || ''}`;
+    });
+
+    return gossips;
+
+    // return [`${prefix || ''} ${gossipBody} ${suffix || ''}`];
   }
 
-  getGossips() {
-    return ['You were expecting some gossips? not today mate...'];
+  async getGossips() {
+    const gossips = await this.gossipRepository.findAll();
+    if (!gossips) {
+      return null;
+    }
+    return gossips;
+    // return ['You were expecting some gossips? not today mate...'];
+  }
+
+  async createGossip(gossip: CreateGossipDTO) {
+    const newGossip = this.gossipRepository.create(gossip);
+    if (!newGossip) {
+      return null;
+    }
+    return newGossip;
   }
 
   getPrefixType(race: string): string {
