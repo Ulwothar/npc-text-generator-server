@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { CreateSuffixDTO } from 'src/gossips/dtos/create-suffix.dto';
 import { SuffixRepository } from 'src/gossips/repositories/suffix.repository';
 import { Suffix } from 'src/gossips/schemas/Suffix.schema';
-import { locations } from 'src/gossips/types';
 
 @Injectable()
 export class SuffixesService {

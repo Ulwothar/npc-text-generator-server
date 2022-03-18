@@ -3,7 +3,6 @@ import { CreatePrefixDTO } from 'src/gossips/dtos/create-prefix.dto';
 import { SearchPrefixDTO } from 'src/gossips/dtos/search-prefix.dto';
 import { PrefixRepository } from 'src/gossips/repositories/prefix.repository';
 import { Prefix } from 'src/gossips/schemas/prefix.schema';
-import { races } from 'src/gossips/types';
 
 @Injectable()
 export class PrefixesService {
