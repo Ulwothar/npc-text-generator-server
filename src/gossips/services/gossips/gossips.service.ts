@@ -40,11 +40,25 @@ export class GossipsService {
     // );
 
     gossips.forEach((gossip) => {
-      const prefixIndex = Math.floor(Math.random() * prefixes.length);
-      const suffixIndex = Math.floor(Math.random() * suffixes.length);
-      gossip.gossip = `${prefixes[prefixIndex].prefix || ''} ${gossip.gossip} ${
-        suffixes[suffixIndex].suffix || ''
-      }`;
+      if (prefixes) {
+        if (suffixes) {
+          const prefixIndex = Math.floor(Math.random() * prefixes.length);
+          const suffixIndex = Math.floor(Math.random() * suffixes.length);
+          gossip.gossip = `${prefixes[prefixIndex].prefix || ''} ${
+            gossip.gossip
+          } ${suffixes[suffixIndex].suffix || ''}`;
+        } else {
+          const prefixIndex = Math.floor(Math.random() * prefixes.length);
+          gossip.gossip = `${prefixes[prefixIndex].prefix || ''} ${
+            gossip.gossip
+          }`;
+        }
+      } else if (!prefixes && suffixes) {
+        const suffixIndex = Math.floor(Math.random() * suffixes.length);
+        gossip.gossip = `${gossip.gossip} ${
+          suffixes[suffixIndex].suffix || ''
+        }`;
+      }
     });
 
     return gossips;
