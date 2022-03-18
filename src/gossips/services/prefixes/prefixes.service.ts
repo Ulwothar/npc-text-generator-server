@@ -24,7 +24,8 @@ export class PrefixesService {
   }
 
   async getPrefixesByRace(race: SearchPrefixDTO): Promise<Prefix[]> {
-    const prefixList = await this.prefixRepository.find(race);
+    const raceType = this.getRaceType(race.race);
+    const prefixList = await this.prefixRepository.find({ raceType: raceType });
     if (!prefixList || !prefixList.length) {
       return null;
     }
@@ -32,7 +33,7 @@ export class PrefixesService {
     return prefixList;
   }
 
-  getRaceType(race: races): string {
+  getRaceType(race: string): string {
     switch (race) {
       case 'human':
         return 'humanLike';
