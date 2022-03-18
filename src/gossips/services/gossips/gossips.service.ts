@@ -18,10 +18,7 @@ export class GossipsService {
   async getGossipsByQuery(gossipQuery: SearchGossipDTO) {
     const race = new SearchPrefixDTO(gossipQuery.race);
     const location = new SearchSuffixDTO(gossipQuery.location);
-    console.log('I am in gossip query');
     const gossips = await this.gossipRepository.find(gossipQuery);
-    console.log('gossips:');
-    console.log(gossips);
     if (!gossips) {
       return null;
     }
