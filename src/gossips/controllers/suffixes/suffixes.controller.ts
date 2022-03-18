@@ -8,7 +8,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { CreateSuffixDTO } from 'src/gossips/dtos/create-suffix.dto';
-import { Suffix } from 'src/gossips/schemas/Suffix.schema';
+import { Suffix } from 'src/gossips/schemas/suffix.schema';
 import { SuffixesService } from 'src/gossips/services/suffixes/suffixes.service';
 
 @Controller('suffixes')

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Suffix, SuffixDocument } from '../schemas/Suffix.schema';
+import { Suffix, SuffixDocument } from '../schemas/suffix.schema';
 import { Model, FilterQuery } from 'mongoose';
 
 @Injectable()
