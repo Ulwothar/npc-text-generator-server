@@ -1,22 +1,38 @@
 import { Injectable } from '@nestjs/common';
 import { CreateGossipDTO } from 'src/gossips/dtos/create-gossip.dto';
 import { SearchGossipDTO } from 'src/gossips/dtos/search-gossip.dto';
+import { SearchPrefixDTO } from 'src/gossips/dtos/search-prefix.dto';
+import { SearchSuffixDTO } from 'src/gossips/dtos/search-suffix.dto';
 import { GossipRepository } from 'src/gossips/repositories/gossip.repository';
+import { PrefixesService } from '../prefixes/prefixes.service';
+import { SuffixesService } from '../suffixes/suffixes.service';
 
 @Injectable()
 export class GossipsService {
-  constructor(private readonly gossipRepository: GossipRepository) {}
+  constructor(
+    private readonly gossipRepository: GossipRepository,
+    private readonly prefixService: PrefixesService,
+    private readonly suffixService: SuffixesService,
+  ) {}
 
   async getGossipsByQuery(gossipQuery: SearchGossipDTO) {
+    const race = new SearchPrefixDTO(gossipQuery.race);
+    const location = new SearchSuffixDTO(gossipQuery.location);
+
     const gossips = await this.gossipRepository.find(gossipQuery);
+
     if (!gossips) {
       return null;
     }
-    const prefixType: string | null = this.getPrefixType(gossipQuery.race);
-    console.log(prefixType);
-    const prefix: string | null = this.getPrefix(prefixType);
-    console.log(prefix);
-    const suffix: string | null = this.getSuffix(gossipQuery.location);
+
+    const prefixes = await this.prefixService.getPrefixesByRace(race);
+    const suffixes = await this.suffixService.getSuffixByLocation(location);
+
+    // const prefixType: string | null = this.getPrefixType(gossipQuery.race);
+    // console.log(prefixType);
+    // const prefix: string | null = this.getPrefix(prefixType);
+    // console.log(prefix);
+    // const suffix: string | null = this.getSuffix(gossipQuery.location);
     // const gossipBody: string = this.getGossipBody(
     //   gossipQuery.type,
     //   gossipQuery.patrons,
@@ -24,7 +40,11 @@ export class GossipsService {
     // );
 
     gossips.forEach((gossip) => {
-      gossip.gossip = `${prefix || ''} ${gossip.gossip} ${suffix || ''}`;
+      const prefixIndex = Math.floor(Math.random() * prefixes.length);
+      const suffixIndex = Math.floor(Math.random() * suffixes.length);
+      gossip.gossip = `${prefixes[prefixIndex].prefix || ''} ${gossip.gossip} ${
+        suffixes[suffixIndex].suffix || ''
+      }`;
     });
 
     return gossips;

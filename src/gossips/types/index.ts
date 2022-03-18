@@ -32,6 +32,12 @@ export enum races {
   gnome = 'gnome',
 }
 
+export enum raceTypes {
+  human = 'humanLike',
+  elf = 'elf',
+  dwarf = 'dwarfLike',
+}
+
 export interface Gossip extends Document {
   readonly type: types;
   readonly patrons: patrons;
