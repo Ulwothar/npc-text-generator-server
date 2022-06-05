@@ -17,14 +17,14 @@ export class GossipsService {
 
   async getGossipsByQuery(gossipQuery: SearchGossipDTO) {
     const race = new SearchPrefixDTO(gossipQuery.race);
-    const location = new SearchSuffixDTO(gossipQuery.location);
+    const type = new SearchSuffixDTO(gossipQuery.type);
     const gossips = await this.gossipRepository.find(gossipQuery);
     if (!gossips) {
       return null;
     }
 
     const prefixes = await this.prefixService.getPrefixesByRace(race);
-    const suffixes = await this.suffixService.getSuffixByLocation(location);
+    const suffixes = await this.suffixService.getSuffixByLocation(type);
 
     // const prefixType: string | null = this.getPrefixType(gossipQuery.race);
     // console.log(prefixType);

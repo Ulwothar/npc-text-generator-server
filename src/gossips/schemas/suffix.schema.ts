@@ -6,7 +6,7 @@ export type SuffixDocument = Suffix & Document;
 @Schema()
 export class Suffix {
   @Prop()
-  location: string;
+  type: string;
 
   @Prop()
   suffix: string;

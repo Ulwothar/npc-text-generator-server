@@ -1,11 +1,11 @@
 import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
-import { locations } from '../types';
+import { types } from '../types';
 
 export class CreateSuffixDTO {
   @IsNotEmpty()
   @IsString()
-  @IsEnum(locations)
-  location: locations;
+  @IsEnum(types)
+  type: types;
 
   @IsNotEmpty()
   @IsString()

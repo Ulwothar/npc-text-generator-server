@@ -1,12 +1,12 @@
 import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
-import { locations } from '../types';
+import { types } from '../types';
 
 export class SearchSuffixDTO {
-  constructor(private readonly passedLocation: string) {
-    this.location = passedLocation;
+  constructor(private readonly passedType: string) {
+    this.type = passedType;
   }
   @IsNotEmpty()
   @IsString()
-  @IsEnum(locations)
-  location: string;
+  @IsEnum(types)
+  type: string;
 }
