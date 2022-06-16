@@ -1,11 +1,11 @@
 import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
-import { types, patrons, threat } from '../types/index';
+import { locations, patrons, threat } from '../types/index';
 
 export class CreateGossipDTO {
   @IsNotEmpty()
   @IsString()
-  @IsEnum(types)
-  type: types;
+  @IsEnum(locations)
+  location: locations;
 
   @IsNotEmpty()
   @IsString()

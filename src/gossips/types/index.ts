@@ -1,8 +1,8 @@
 import { Document } from 'mongoose';
 export enum types {
-  poor = 'poor inn',
-  common = 'common inn',
-  good = 'good inn',
+  poor = 'poor',
+  common = 'common',
+  good = 'good',
 }
 
 export enum patrons {

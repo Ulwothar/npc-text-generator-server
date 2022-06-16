@@ -6,7 +6,7 @@ export type GossipDocument = Gossip & Document;
 @Schema()
 export class Gossip {
   @Prop()
-  type: string;
+  location: string;
 
   @Prop()
   patrons: string;
