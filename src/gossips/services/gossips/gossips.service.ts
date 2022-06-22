@@ -28,6 +28,7 @@ export class GossipsService {
     const language = this.getLanguage(race.race);
     const firstGreetings = this.getGreetings(language);
     const personalReturn = this.getPersonalReturn(type.type);
+    const formattedGossips: Array<string> = [];
     let greetingsUsed = false;
     if (!gossips) {
       return null;
@@ -116,9 +117,10 @@ export class GossipsService {
           personalReturn,
         );
       }
+      formattedGossips.push(gossip.gossip);
     });
 
-    return gossips;
+    return formattedGossips;
     // return [`${prefix || ''} ${gossipBody} ${suffix || ''}`];
   }
 
