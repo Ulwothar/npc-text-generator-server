@@ -26,19 +26,14 @@ export class GossipsService {
     const type = new SearchSuffixDTO(gossipQuery.type);
     const gossips = await this.gossipRepository.find(gossipQuery);
     const language = this.getLanguage(race.race);
-    const firstGreetings = this.getGreetings(language);
+    const greeting = this.getGreetings(language);
     const personalReturn = this.getPersonalReturn(type.type);
     const formattedGossips: Array<string> = [];
-    let greetingsUsed = false;
     if (!gossips) {
       return null;
     }
 
     gossips.forEach((gossip) => {
-      if (!greetingsUsed) {
-        gossip.gossip = `${firstGreetings}. ${gossip.gossip}`;
-        greetingsUsed = true;
-      }
       if (gossip.gossip.includes('%placeDescription')) {
         gossip.gossip = gossip.gossip.replace(
           '%placeDescription',
@@ -120,7 +115,10 @@ export class GossipsService {
       formattedGossips.push(gossip.gossip);
     });
 
-    return formattedGossips;
+    return {
+      greeting: greeting,
+      rumors: formattedGossips,
+    };
     // return [`${prefix || ''} ${gossipBody} ${suffix || ''}`];
   }
 

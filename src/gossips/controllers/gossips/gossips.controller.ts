@@ -36,7 +36,7 @@ export class GossipsController {
   async getGossipsByQuery(@Query() query: SearchGossipDTO) {
     console.log(query);
     const gossip = await this.gossipsService.getGossipsByQuery(query);
-    if (!gossip || gossip.length === 0) {
+    if (!gossip || gossip.rumors.length === 0) {
       throw new HttpException(
         'I do not have any gossips for you today',
         HttpStatus.NOT_FOUND,
