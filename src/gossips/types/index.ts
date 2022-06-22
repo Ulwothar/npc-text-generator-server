@@ -13,7 +13,7 @@ export enum patrons {
 export enum locations {
   village = 'village',
   town = 'town',
-  capital = 'capital town',
+  capital = 'capital',
   wilderness = 'wilderness',
 }
 

@@ -332,7 +332,7 @@ export class GossipsService {
                 Math.floor(Math.random() * arrayLength)
               ].common;
           }
-        } else if (innType === 'dwarvish') {
+        } else if (language === 'dwarvish') {
           arrayLength = dwarvishLanguage.conversationPhrases.length;
           languageFlip = Math.floor(Math.random() * 2);
           if (languageFlip === 0) {
@@ -347,6 +347,8 @@ export class GossipsService {
               ].common;
           }
         }
+        replacedText =
+          replacedText.charAt(0).toUpperCase() + replacedText.slice(1);
         break;
       case '%negation':
         if (language === 'common') {
